@@ -16,7 +16,7 @@ public class Main {
         employee.add(new Employee("Ani", 16));
         employee.add(new Employee("Steve", 37));
         employee.add(new Employee("Lisa", 28));
-        employee.add(new Employee("Unawa", 22));
+        employee.add(new Employee("Ungwa", 22));
         employee.add(new Employee("Guido", 66));
         employee.add(new Employee("Elise", 19));
 
