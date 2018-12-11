@@ -2,43 +2,73 @@ package com.cameronbeeler;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class Main {
 
     private static List<Employee> employee = new ArrayList <>();
 
-    public static void main(String[] args) {
-        employee.add(new Employee("Cameron", 50));
-        employee.add(new Employee("Kim", 48));
-        employee.add(new Employee("Shiloh", 18));
-        employee.add(new Employee("Wyatt", 14));
-        employee.add(new Employee("Ani", 16));
-        employee.add(new Employee("Steve", 37));
-        employee.add(new Employee("Lisa", 28));
-        employee.add(new Employee("Ungwa", 22));
-        employee.add(new Employee("Guido", 66));
-        employee.add(new Employee("Elise", 19));
+    public static void main(String[] args)
+    {
+        employee.add(new Employee("Cameron Beeler", 50));
+        employee.add(new Employee("Kim Beeler", 48));
+        employee.add(new Employee("Shiloh Beeler", 18));
+        employee.add(new Employee("Wyatt Beeler", 14));
+        employee.add(new Employee("Ani Beeler", 16));
+        employee.add(new Employee("Steve Johnson", 37));
+        employee.add(new Employee("Lisa Duda", 28));
+        employee.add(new Employee("Ungwa Mkata", 22));
+        employee.add(new Employee("Guido Luigi", 66));
+        employee.add(new Employee("Elise Dorondo", 19));
 
+        Function<Employee, String> getLastName = (Employee employee) -> {
+            return employee.getName().substring(employee.getName().indexOf(' ') + 1);
+        };
+        Function<Employee, String> getFirstName = (Employee employee) -> {
+            return employee.getName().substring(0, employee.getName().indexOf(' ')  );
+        };
+        for(int i=0; i< employee.size(); i++){
+            String lastName = getLastName.apply(employee.get(i));
+            String firstName = getFirstName.apply(employee.get(i));
+            System.out.println(i + ": " + lastName + ", " + firstName);}
+/*
         printEmployeesByAge(employee, "Employee at or under 20", emp -> emp.getAge() <= 20);
         System.out.println();
         printEmployeesByAge(employee, "Employee over 30", emp -> emp.getAge() > 30);
         // we can utilize lambdas or we can explicitly code the anonymous class to accomplish the same...
-        printEmployeesByAge(employee, "Employees younger than 25", new Predicate<Employee>(){
+        printEmployeesByAge(employee, "Employees younger than 25", new Predicate<Employee>()
+        {
             @Override
-            public boolean test(Employee employee)
+            public
+            boolean test(Employee employee)
             {
-                return employee.getAge()<25;
+                return employee.getAge() < 25;
             }
         });
 
 
-        IntPredicate greaterThan15 = i-> i > 15;
-        IntPredicate lessThan30 = i -> i<30;
+        IntPredicate greaterThan15 = i -> i > 15;
+        IntPredicate lessThan30    = i -> i < 30;
         int          a             = 16;
         System.out.println(greaterThan15.and(lessThan30).test(a));
-        System.out.println((greaterThan15.test(a ) && lessThan30.test(a)));
+        System.out.println((greaterThan15.test(a) && lessThan30.test(a)));
+
+        Random             random         = new Random();
+        Supplier<Integer> randomSupplier = () -> random.nextInt(10);
+        for (int i = 0; i<10; i++)
+        {
+            System.out.println(randomSupplier.get());
+        }
+
+        employee.forEach(employee1 -> {
+            String lastName = employee1.getName().substring(employee1.getName().indexOf(' ') + 1);
+            System.out.println("Last name is " + lastName);
+        });
+        */
     }
 
     private static void printEmployeesByAge(List<Employee> employee, String ageText, Predicate<Employee> ageCondition)
