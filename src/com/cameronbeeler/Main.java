@@ -3,10 +3,7 @@ package com.cameronbeeler;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Function;
-import java.util.function.IntPredicate;
-import java.util.function.Predicate;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 public class Main {
 
@@ -31,10 +28,24 @@ public class Main {
         Function<Employee, String> getFirstName = (Employee employee) -> {
             return employee.getName().substring(0, employee.getName().indexOf(' ')  );
         };
+
         for(int i=0; i< employee.size(); i++){
             String lastName = getLastName.apply(employee.get(i));
             String firstName = getFirstName.apply(employee.get(i));
             System.out.println(i + ": " + lastName + ", " + firstName);}
+
+//      CHAINING lambda functions together
+        Function<Employee, String> upperCase = employee1 -> employee1.getName().toUpperCase();
+        Function<String, String> firstName = name -> name.substring(0, name.indexOf(' '));
+        Function chainedFunction = upperCase.andThen(firstName);
+        System.out.println(chainedFunction.apply(employee.get(0)));
+
+        Consumer<String> c1 = s-> System.out.println(s.toUpperCase());
+        Consumer<String> c2 = s-> System.out.println(s);
+        c1.accept("This is the test of uppercase");
+//        c1.andThen(c2).accept("Howdy Doody");
+        c1.andThen(c2).accept("uppercase?");
+
 /*
         printEmployeesByAge(employee, "Employee at or under 20", emp -> emp.getAge() <= 20);
         System.out.println();
